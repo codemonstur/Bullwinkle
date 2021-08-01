@@ -1,0 +1,17 @@
+
+# Grammar for JSON
+
+<S>             := <list> | <object> | <string> | <number> | <boolean> | <null>
+
+<list>          := [ <list_contents> ]
+<list_contents> := <S> , <list_contents> | <S> | ε
+
+<object>        := { <prop_list> }
+<prop_list>     := <prop> , <prop_list> | <prop> | ε
+<prop>          := <attribute> : <S>
+<attribute>     := <string>
+
+<string>        := ^"[^"\s\[\]]*"
+<number>        := ^\d+
+<boolean>       := true | false
+<null>          := null

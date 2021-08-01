@@ -1,5 +1,0 @@
-<S>           := <selection> | <tablename> ;
-<tablename>   := ^[a-z]*;
-<criterion>   := ^[a-z]*;
-<selection>   := SELECT <criterion> FROM <S>;
-

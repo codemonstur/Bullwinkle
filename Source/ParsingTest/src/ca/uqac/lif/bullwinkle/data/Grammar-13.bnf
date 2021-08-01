@@ -1,6 +1,0 @@
-# The example from the README used to illustrate partial parsing
-
-<S> := <A> <B> c ;
-<A> := foo ;
-<B> := bar | <Z> d ;
-<Z> := 0 | 1 ;

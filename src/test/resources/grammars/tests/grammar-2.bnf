@@ -1,0 +1,9 @@
+
+# BNF grammar for LTL-FO+
+
+<φ>            := ( <φ> ) ∧ ( <φ> ) | ( <φ> ) ∨ ( <φ> ) | ( <φ> ) → ( <φ> ) | ¬ ( <φ> ) | F ( <φ> ) | G ( <φ> ) | X ( <φ> ) | ( <φ> ) U ( <φ> ) | ∃ <var> ∈ <π> : ( <φ> ) | ∀ <var> ∈ <π> : ( <φ> ) | <atom>
+<atom>         := <var_or_const> = <var_or_const> | <var_or_const> gt <var_or_const> | <var_or_const> lt <var_or_const>
+<var_or_const> := <var> | <const>
+<const>        := ^"[\w\d\s]+"
+<var>          := ^[\w\d]+
+<π>            := ^/[\w/]+
