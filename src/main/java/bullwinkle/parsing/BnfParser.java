@@ -141,8 +141,8 @@ public class BnfParser {
 
 	/**
 	 * Adds a new case to an existing rule
-	 * @param index The location in the list of cases where to put the
-	 *   new case. Use 0 to put the new case at the beginning.
+	 * @param index The location in the list of cases where to put the new case. Use 0 to
+	 *              put the new case at the beginning.
 	 * @param ruleName The name of the rule
 	 * @param caseString The case to add
 	 */
@@ -183,7 +183,7 @@ public class BnfParser {
 	 * @param grammar The string containing the grammar to be used
 	 */
 	public void setGrammar(final String grammar) throws InvalidGrammar {
-		addRules(getRules(grammar));
+		addRules(parseRules(grammar));
 	}
 	
 	/**
@@ -191,7 +191,7 @@ public class BnfParser {
 	 * @param scanner A scanner containing the grammar to be used
 	 */
 	public void setGrammar(final Scanner scanner) throws InvalidGrammar {
-		addRules(getRules(scanner));
+		addRules(parseRules(scanner));
 	}
 
 	/**
@@ -199,10 +199,10 @@ public class BnfParser {
 	 * @param grammar The string containing the grammar to be used
 	 * @return A list of grammar rules
 	 */
-	public static List<BnfRule> getRules(final String grammar) throws InvalidGrammar {
+	public static List<BnfRule> parseRules(final String grammar) throws InvalidGrammar {
 		if (grammar == null) throw new InvalidGrammar("Null argument given");
 
-		return getRules(new Scanner(grammar));
+		return parseRules(new Scanner(grammar));
 	}
 
 	/**
@@ -210,8 +210,8 @@ public class BnfParser {
 	 * @param scanner A scanner open on a string containing the grammar to be used
 	 * @return A list of grammar rules
 	 */
-	public static List<BnfRule> getRules(final Scanner scanner) throws InvalidGrammar {
-		List<BnfRule> rules = new LinkedList<>();
+	public static List<BnfRule> parseRules(final Scanner scanner) throws InvalidGrammar {
+		final var rules = new LinkedList<BnfRule>();
 
 		while (scanner.hasNextLine()) {
 			String line = scanner.nextLine();
@@ -222,17 +222,13 @@ public class BnfParser {
 			line = line.trim();
 			if (line.isEmpty() || line.startsWith("#")) continue;
 
-			try
-			{
+			try {
 				rules.add(BnfRule.parseRule(line.trim()));
-			}
-			catch (InvalidRule e)
-			{
-				scanner.close();
+			} catch (InvalidRule e) {
 				throw new InvalidGrammar(e);
 			}
 		}
-		scanner.close();
+
 		return rules;
 	}
 	

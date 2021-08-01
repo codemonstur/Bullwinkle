@@ -40,19 +40,14 @@ public final class BnfRule {
 		String[] lr = input.split("\\s*:=\\s*");
 		if (lr.length != 2) throw new InvalidRule("Cannot find left- and right-hand side of BNF rule");
 
-		String lhs = lr[0].trim();
-		out.setLeftHandSide(new NonTerminalToken(lhs));
+		out.setLeftHandSide(new NonTerminalToken(lr[0].trim()));
+
 		if (lr[1].startsWith("^")) {
 			// This is a regex line
-			String regex = unescapeString(lr[1]);
-			// Remove semicolon
-			TokenString alternativeToAdd = new TokenString();
-			Token to_add = new RegexTerminalToken(regex);
-			alternativeToAdd.add(to_add);
+			final TokenString alternativeToAdd = new TokenString();
+			alternativeToAdd.add(new RegexTerminalToken(unescapeString(lr[1])));
 			out.addAlternative(alternativeToAdd);
-		}
-		else
-		{
+		} else {
 			// Anything but a regex line
 			String[] parts = lr[1].split("\\s+\\|\\|\\s+");
 			String[] normalAlternatives = parts[0].split("\\s+\\|\\s+");

@@ -53,7 +53,7 @@ public class GrammarTests {
 	
 	@Test(expected= InvalidGrammar.class)
 	public void testNulLRules() throws InvalidGrammar {
-		BnfParser.getRules((String)null);
+		BnfParser.parseRules((String)null);
 	}
 	
 	@Test(expected= InvalidGrammar.class)
